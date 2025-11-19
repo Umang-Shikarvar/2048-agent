@@ -1,0 +1,7 @@
+# Ignore model checkpoints
+*.pkl
+*.pickle
+
+# Optional: ignore environment logs or caches
+__pycache__/
+*.log

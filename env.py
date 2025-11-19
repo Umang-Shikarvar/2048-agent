@@ -182,15 +182,11 @@ class Env2048:
         self.window.after(UPDATE_MS, self.step)
         self.window.mainloop()
 
-# =============================== SAMPLE AGENT ==================================
-
-class RandomAgent:
-    """Default agent if nothing provided: picks any legal move randomly"""
-    def act(self, game: Game2048):
-        return random.choice(game.legal_moves())
-
-# =============================== MAIN (TEST) ===================================
+# ============================== Main =====================================
+from q_agent import QAgent
+from random_agent import RandomAgent
 
 if __name__ == "__main__":
-    env = Env2048(agent=RandomAgent())
+    # env = Env2048(agent=RandomAgent())
+    env = Env2048(agent=QAgent())
     env.run()
