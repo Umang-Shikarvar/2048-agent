@@ -1,0 +1,72 @@
+
+========================================
+🧠 AGENT: RandomAgent
+========================================
+Average Score : 1102.70
+Max Score     : 4604
+
+🔢 Max Tile Distribution:
+  Tile 16  :     3 times (0.30%)
+  Tile 32  :    67 times (6.70%)
+  Tile 64  :   376 times (37.60%)
+  Tile 128 :   475 times (47.50%)
+  Tile 256 :    78 times (7.80%)
+  Tile 512 :     1 times (0.10%)
+
+🏆 Win Rate (>= 2048): 0.00%
+========================================
+
+
+========================================
+🧠 AGENT: Q-Learning Agent
+========================================
+Average Score : 1897.65
+Max Score     : 7236
+
+🔢 Max Tile Distribution:
+  Tile 16  :     3 times (0.30%)
+  Tile 32  :    29 times (2.90%)
+  Tile 64  :   201 times (20.10%)
+  Tile 128 :   495 times (49.50%)
+  Tile 256 :   257 times (25.70%)
+  Tile 512 :    15 times (1.50%)
+
+🏆 Win Rate (>= 2048): 0.00%
+========================================
+
+
+========================================
+🧠 AGENT: Double Q-Learning Agent
+========================================
+Average Score : 1893.87
+Max Score     : 6788
+
+🔢 Max Tile Distribution:
+  Tile 32  :    36 times (3.60%)
+  Tile 64  :   214 times (21.40%)
+  Tile 128 :   470 times (47.00%)
+  Tile 256 :   264 times (26.40%)
+  Tile 512 :    16 times (1.60%)
+
+🏆 Win Rate (>= 2048): 0.00%
+========================================
+
+
+========================================
+🧠 AGENT: Expectimax Agent
+========================================
+Average Score : 33427.56
+Max Score     : 114624
+
+🔢 Max Tile Distribution:
+  Tile 128 :     1 times (0.10%)
+  Tile 256 :    29 times (2.90%)
+  Tile 512 :    51 times (5.10%)
+  Tile 1024:   180 times (18.00%)
+  Tile 2048:   517 times (51.70%)
+  Tile 4096:   218 times (21.80%)
+  Tile 8192:     4 times (0.40%)
+
+🏆 Win Rate (>= 2048): 73.90%
+========================================
+

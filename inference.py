@@ -1,13 +1,15 @@
 """
 Benchmark multiple agents on 2048 environment (NO UI).
-Runs 1000 episodes for each agent and prints performance metrics.
+Runs 1000 episodes for each agent and prints & saves performance metrics.
 """
 
-import random
+import random, sys
 from env import Game2048
 from q_agent import QAgent
 from dq_agent import DQAgent
 from random_agent import RandomAgent
+from expectimax_agent import ExpectimaxAgent
+
 
 # ==========================================================
 # Generic evaluation (used by ALL agents)
@@ -41,29 +43,34 @@ def evaluate_agent(agent, episodes=1000):
 
 
 # ==========================================================
-# Helper: Pretty-print results
+# Save + Print Results
 # ==========================================================
 
-def print_results(name, avg_score, max_score, tiles):
+def print_and_log(f, msg):
+    print(msg, end="")
+    f.write(msg)
+
+
+def print_results(name, avg_score, max_score, tiles, f):
     # tile frequency
     tile_freq = {}
     for t in tiles:
         v = (1 << t) if t > 0 else 0
         tile_freq[v] = tile_freq.get(v, 0) + 1
 
-    print("\n========================================")
-    print(f"🧠 AGENT: {name}")
-    print("========================================")
-    print(f"Average Score : {avg_score:.2f}")
-    print(f"Max Score     : {max_score}")
-    print("\n🔢 Max Tile Distribution:")
+    print_and_log(f, "\n========================================\n")
+    print_and_log(f, f"🧠 AGENT: {name}\n")
+    print_and_log(f, "========================================\n")
+    print_and_log(f, f"Average Score : {avg_score:.2f}\n")
+    print_and_log(f, f"Max Score     : {max_score}\n\n")
+    print_and_log(f, "🔢 Max Tile Distribution:\n")
     for v, c in sorted(tile_freq.items()):
-        print(f"  Tile {v:<4}: {c:>5} times ({c*100.0/len(tiles):.2f}%)")
+        print_and_log(f, f"  Tile {v:<4}: {c:>5} times ({c*100.0/len(tiles):.2f}%)\n")
 
     # Win rate 2048+
     wins = sum(c for v, c in tile_freq.items() if v >= 2048)
-    print(f"\n🏆 Win Rate (>= 2048): {wins*100.0/len(tiles):.2f}%")
-    print("========================================\n")
+    print_and_log(f, f"\n🏆 Win Rate (>= 2048): {wins*100.0/len(tiles):.2f}%\n")
+    print_and_log(f, "========================================\n\n")
 
 
 # ==========================================================
@@ -75,8 +82,12 @@ if __name__ == "__main__":
         "RandomAgent": RandomAgent(),
         "Q-Learning Agent": QAgent(),
         "Double Q-Learning Agent": DQAgent(),
+        "Expectimax Agent": ExpectimaxAgent()
     }
 
-    for name, agent in agents.items():
-        avg_score, max_score, tiles = evaluate_agent(agent, episodes=5000)
-        print_results(name, avg_score, max_score, tiles)
+    with open("results.txt", "w", encoding="utf-8") as f:
+        for name, agent in agents.items():
+            avg_score, max_score, tiles = evaluate_agent(agent, episodes=1000)
+            print_results(name, avg_score, max_score, tiles, f)
+
+    print("\n📄 Benchmark complete! Saved to results.txt\n")

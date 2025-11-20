@@ -186,9 +186,11 @@ class Env2048:
 from q_agent import QAgent
 from random_agent import RandomAgent
 from dq_agent import DQAgent
+from expectimax_agent import ExpectimaxAgent
 
 if __name__ == "__main__":
     # env = Env2048(agent=RandomAgent())
     # env = Env2048(agent=QAgent())
-    env = Env2048(agent=DQAgent())
+    # env = Env2048(agent=DQAgent())
+    env = Env2048(agent=ExpectimaxAgent())
     env.run()
