@@ -185,8 +185,10 @@ class Env2048:
 # ============================== Main =====================================
 from q_agent import QAgent
 from random_agent import RandomAgent
+from dq_agent import DQAgent
 
 if __name__ == "__main__":
     # env = Env2048(agent=RandomAgent())
-    env = Env2048(agent=QAgent())
+    # env = Env2048(agent=QAgent())
+    env = Env2048(agent=DQAgent())
     env.run()

@@ -1,7 +1,7 @@
 import pickle
 
 class QAgent:
-    def __init__(self, path="ql_qtable.pkl"):
+    def __init__(self, path="qtable_alpha_0.15.pkl"):
         with open(path, "rb") as f:
             self.Q = pickle.load(f)
 

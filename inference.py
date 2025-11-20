@@ -6,6 +6,7 @@ Runs 1000 episodes for each agent and prints performance metrics.
 import random
 from env import Game2048
 from q_agent import QAgent
+from dq_agent import DQAgent
 from random_agent import RandomAgent
 
 # ==========================================================
@@ -73,8 +74,9 @@ if __name__ == "__main__":
     agents = {
         "RandomAgent": RandomAgent(),
         "Q-Learning Agent": QAgent(),
+        "Double Q-Learning Agent": DQAgent(),
     }
 
     for name, agent in agents.items():
-        avg_score, max_score, tiles = evaluate_agent(agent, episodes=1000)
+        avg_score, max_score, tiles = evaluate_agent(agent, episodes=5000)
         print_results(name, avg_score, max_score, tiles)
