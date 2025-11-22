@@ -70,3 +70,34 @@ Max Score     : 114624
 🏆 Win Rate (>= 2048): 73.90%
 ========================================
 
+
+========================================
+AGENT: SARSA N-tuple Agent (After state)
+========================================
+Average Score : 2791.53
+Max Score     : 8168
+
+ Max Tile Distribution:
+  Tile 32  :    1 times (0.20%)
+  Tile 64  :   18 times (3.60%)
+  Tile 128 :  204 times (40.80%)
+  Tile 256 :  231 times (46.20%)
+  Tile 512 :   46 times (9.20%)
+
+ Win Rate (>= 2048): 0.00%
+========================================
+
+========================================
+AGENT: sarsa (Classical sarsa)
+========================================
+Average Score : 3098.31
+Max Score     : 8876
+
+Max Tile Distribution:
+  Tile 64  :    20 times (4.00%)
+  Tile 128 :   166 times (33.20%)
+  Tile 256 :   251 times (50.20%)
+  Tile 512 :    63 times (12.60%)
+
+Win Rate (>= 2048): 0.00%
+========================================
