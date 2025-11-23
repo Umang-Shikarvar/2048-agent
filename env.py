@@ -187,10 +187,14 @@ from q_agent import QAgent
 from random_agent import RandomAgent
 from dq_agent import DQAgent
 from expectimax_agent import ExpectimaxAgent
+from ppo_agent import PPOAgent
+from muzero_agent import MuZeroAgent
 
 if __name__ == "__main__":
     # env = Env2048(agent=RandomAgent())
     # env = Env2048(agent=QAgent())
     # env = Env2048(agent=DQAgent())
-    env = Env2048(agent=ExpectimaxAgent())
+    # env = Env2048(agent=ExpectimaxAgent())
+    env = Env2048(agent=PPOAgent(path="/Users/tejasmacipad/Desktop/Third_year/FAI/2048-agent/PPO/ppo_final.pt"))
+    env = Env2048(agent=MuZeroAgent(path="/Users/tejasmacipad/Desktop/Third_year/FAI/2048-agent/MuZero-Lite/muzero_final.pt"))
     env.run()

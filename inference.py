@@ -9,6 +9,8 @@ from q_agent import QAgent
 from dq_agent import DQAgent
 from random_agent import RandomAgent
 from expectimax_agent import ExpectimaxAgent
+from ppo_agent import PPOAgent
+from muzero_agent import MuZeroAgent
 
 
 # ==========================================================
@@ -79,10 +81,12 @@ def print_results(name, avg_score, max_score, tiles, f):
 
 if __name__ == "__main__":
     agents = {
-        "RandomAgent": RandomAgent(),
-        "Q-Learning Agent": QAgent(),
-        "Double Q-Learning Agent": DQAgent(),
-        "Expectimax Agent": ExpectimaxAgent()
+        # "RandomAgent": RandomAgent(),
+        # "Q-Learning Agent": QAgent(),
+        # "Double Q-Learning Agent": DQAgent(),
+        # "Expectimax Agent": ExpectimaxAgent(),
+        "PPO Agent": PPOAgent(path="/Users/tejasmacipad/Desktop/Third_year/FAI/2048-agent/PPO/ppo_final.pt"),
+        "MuZero Agent": MuZeroAgent("/Users/tejasmacipad/Desktop/Third_year/FAI/2048-agent/MuZero-Lite/muzero_final.pt")
     }
 
     with open("results.txt", "w", encoding="utf-8") as f:
