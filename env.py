@@ -186,7 +186,7 @@ class Env2048:
 from q_agent import QAgent
 from random_agent import RandomAgent
 from dq_agent import DQAgent
-from expectimax_agent import ExpectimaxAgent
+from Expectimax.expectimax_agent import ExpectimaxAgent
 from ppo_agent import PPOAgent
 from muzero_lite import MuZeroAgent
 

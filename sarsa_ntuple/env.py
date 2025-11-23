@@ -200,7 +200,7 @@ class Env2048:
 # from random_agent import RandomAgent
 from sarsa_qagent import SarsaQNTupleAgent
 
-from expectimax_agent import ExpectimaxAgent
+from Expectimax.expectimax_agent import ExpectimaxAgent
 
 if __name__ == "__main__":
     # Run visual environment using SARSA agent

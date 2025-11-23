@@ -8,7 +8,7 @@ from env import Game2048
 from q_agent import QAgent
 from dq_agent import DQAgent
 from random_agent import RandomAgent
-from expectimax_agent import ExpectimaxAgent
+from Expectimax.expectimax_agent import ExpectimaxAgent
 from ppo_agent import PPOAgent
 from muzero_agent import MuZeroAgent
 
