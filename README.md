@@ -1,4 +1,16 @@
-# 🧩 2048 Agent Performance Report
+# 🧩 2048 Agent Performance Benchmark
+
+## 👥 Team Members
+| Name | Roll No. |
+|------|----------|
+| **Umang Shikarvar** | 23110301 |
+| **Shardul Junagade** | 23110297 |
+| **Tejas Lohia** | 23110335 |
+| **Zainab Kapadia** | 23110373 |
+
+🔗 **Download Models & Q-Tables**  
+All final trained models and learned Q-tables are available here:  
+[📎 Click to Access Trained Models](https://iitgnacin-my.sharepoint.com/:f:/g/personal/23110301_iitgn_ac_in/IgDYIYqaiXp2QasWhTpzRWO-AbbNYkNeHdt51t8VV79WDzo?e=agbGKB)
 
 ---
 
