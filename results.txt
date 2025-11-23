@@ -101,3 +101,41 @@ Max Tile Distribution:
 
 Win Rate (>= 2048): 0.00%
 ========================================
+
+
+========================================
+🧠 AGENT: PPO Agent
+========================================
+Average Score : 3079.03
+Max Score     : 11684
+
+🔢 Max Tile Distribution:
+  Tile 16  :     2 times (0.20%)
+  Tile 32  :    10 times (1.00%)
+  Tile 64  :    94 times (9.40%)
+  Tile 128 :   282 times (28.20%)
+  Tile 256 :   436 times (43.60%)
+  Tile 512 :   168 times (16.80%)
+  Tile 1024:     8 times (0.80%)
+
+🏆 Win Rate (>= 2048): 0.00%
+========================================
+
+
+========================================
+🧠 AGENT: MuZero Agent
+========================================
+Average Score : 2208.42
+Max Score     : 6776
+
+🔢 Max Tile Distribution:
+  Tile 32  :    26 times (2.60%)
+  Tile 64  :   120 times (12.00%)
+  Tile 128 :   418 times (41.80%)
+  Tile 256 :   410 times (41.00%)
+  Tile 512 :    26 times (2.60%)
+
+🏆 Win Rate (>= 2048): 0.00%
+========================================
+
+

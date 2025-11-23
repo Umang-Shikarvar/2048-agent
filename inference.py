@@ -85,8 +85,8 @@ if __name__ == "__main__":
         # "Q-Learning Agent": QAgent(),
         # "Double Q-Learning Agent": DQAgent(),
         # "Expectimax Agent": ExpectimaxAgent(),
-        "PPO Agent": PPOAgent(path="/Users/tejasmacipad/Desktop/Third_year/FAI/2048-agent/PPO/ppo_final.pt"),
-        "MuZero Agent": MuZeroAgent("/Users/tejasmacipad/Desktop/Third_year/FAI/2048-agent/MuZero-Lite/muzero_final.pt")
+        "PPO Agent": PPOAgent(path="/Users/zainab/2048-agent/ppo_final.pt"),
+        "MuZero Agent": MuZeroAgent("/Users/zainab/2048-agent/muzero_final.pt")
     }
 
     with open("results.txt", "w", encoding="utf-8") as f:
