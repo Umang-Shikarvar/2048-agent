@@ -1,111 +1,57 @@
 # muzero_agent.py
 import torch
-import torch.nn as nn
 import numpy as np
-import random
+from env import Game2048
 
-###############################################################################
-# MuZero Mini — for 2048
-###############################################################################
-
-class Representation(nn.Module):
-    """ Encodes board into hidden state. """
-    def __init__(self, hidden=128):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(16, hidden),
-            nn.ReLU(),
-            nn.Linear(hidden, hidden),
-            nn.ReLU(),
-        )
-    def forward(self, x):
-        return self.net(x)
-
-
-class Dynamics(nn.Module):
-    """ Predicts next hidden state + reward given (state, action) """
-    def __init__(self, hidden=128, n_actions=4):
-        super().__init__()
-        self.state = nn.Sequential(
-            nn.Linear(hidden + n_actions, hidden),
-            nn.ReLU(),
-            nn.Linear(hidden, hidden),
-            nn.ReLU(),
-        )
-        self.reward = nn.Linear(hidden + n_actions, 1)
-
-    def forward(self, h, a_onehot):
-        x = torch.cat([h, a_onehot], dim=1)
-        next_state = self.state(x)
-        reward = self.reward(x)
-        return next_state, reward
-
-
-class Prediction(nn.Module):
-    """ Predicts policy logits + value from hidden state """
-    def __init__(self, hidden=128, n_actions=4):
-        super().__init__()
-        self.policy = nn.Linear(hidden, n_actions)
-        self.value = nn.Linear(hidden, 1)
-
-    def forward(self, h):
-        return self.policy(h), self.value(h)
-
-
-###############################################################################
-# MuZero Agent (inference only)
-###############################################################################
-def board_to_tensor(board, device):
-    arr = np.array(board, np.float32) / 16.0
-    return torch.tensor(arr, device=device).float().unsqueeze(0)
+# Import EXACT SAME architectures from training
+from muzero_lite import RepresentationNet, DynamicsNet, PredictionNet
+from muzero_lite import DEVICE, ACTION_SIZE, board_to_tensor, one_hot_action
 
 
 class MuZeroAgent:
-    def __init__(self, path="muzero.pt", device=None):
-        self.device = device or (
-            torch.device("cuda") if torch.cuda.is_available()
-            else torch.device("cpu")
-        )
+    """Inference-time MuZero agent for 2048 using trained networks."""
+    def __init__(self, checkpoint_path, device=None):
+        self.device = device or DEVICE
 
-        hidden = 128
-        self.repr = Representation(hidden).to(self.device)
-        self.dyn = Dynamics(hidden).to(self.device)
-        self.pred = Prediction(hidden).to(self.device)
+        # Rebuild SAME networks as training
+        self.repr = RepresentationNet().to(self.device)
+        self.dyn  = DynamicsNet().to(self.device)
+        self.pred = PredictionNet().to(self.device)
 
-        # ---- load checkpoint ----
-        data = torch.load(path, map_location=self.device)
-        self.repr.load_state_dict(data["repr"])
-        self.dyn.load_state_dict(data["dyn"])
-        self.pred.load_state_dict(data["pred"])
+        # Load checkpoint
+        ckpt = torch.load(checkpoint_path, map_location=self.device)
+        model_state = ckpt["model_state"]
+
+        self.repr.load_state_dict(model_state["repr"])
+        self.dyn.load_state_dict(model_state["dyn"])
+        self.pred.load_state_dict(model_state["pred"])
 
         self.repr.eval()
         self.dyn.eval()
         self.pred.eval()
 
+        print(f"[MuZeroAgent] Loaded checkpoint: {checkpoint_path}")
+
+    # ------------------------------------------------------------
+    # MuZero inference: 1-step lookahead (fast & simple)
+    # ------------------------------------------------------------
     def act(self, game):
         legal = game.legal_moves()
         if not legal:
             return None
 
-        board = tuple(game.board)
-        s = board_to_tensor(board, self.device)
+        # Encode board
+        x = board_to_tensor(game.board).unsqueeze(0)  # (1,16)
 
-        # encode
         with torch.no_grad():
-            h = self.repr(s)
+            latent = self.repr(x)                      # (1,latent)
+            logits, value = self.pred(latent)
+            logits = logits.squeeze(0).cpu().numpy()
 
-        # simple 1-step lookahead MuZero MCTS
-        scores = {}
-
+        # Mask illegal actions
+        masked = np.full(ACTION_SIZE, -1e9, dtype=np.float32)
         for a in legal:
-            a_onehot = torch.zeros((1, 4), device=self.device)
-            a_onehot[0, a] = 1
+            masked[a] = logits[a]
 
-            with torch.no_grad():
-                next_h, reward = self.dyn(h, a_onehot)
-                policy_logits, value = self.pred(next_h)
-
-            scores[a] = reward.item() + value.item()
-
-        best = max(scores, key=scores.get)
-        return best
+        action = int(np.argmax(masked))
+        return action
